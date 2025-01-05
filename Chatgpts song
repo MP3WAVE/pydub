@@ -1,0 +1,17 @@
+from pydub import AudioSegment
+from pydub.generators import Sine
+
+# Create kick, snare, and hi-hat sounds using sine waves
+kick = Sine(50).to_audio_segment(duration=150).fade_in(10).fade_out(10)
+snare = Sine(200).to_audio_segment(duration=100).fade_in(10).fade_out(10)
+hihat = Sine(1000).to_audio_segment(duration=50).fade_in(5).fade_out(5)
+
+# Create a basic beat pattern (4/4 time)
+# Kick on beats 1 and 3, Snare on 2 and 4, Hi-hat on every 1/8 note
+beat = kick + hihat + snare + hihat
+
+# Repeat the pattern to make a loop (e.g., 4 times for a short beat)
+looped_beat = beat * 4
+
+# Save the beat as a file
+looped_beat.export("basic_beat.wav", format="wav")
